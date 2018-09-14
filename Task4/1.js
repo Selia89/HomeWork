@@ -17,9 +17,12 @@ class Person { // Базовый класс
     }
 
     marry(pers) {
-        if(this._spouse === "single" && this._gender !== pers._gender) {
+        if (this._spouse === "single" && pers._spouse === "single" && this._gender !== pers._gender) {
             this._spouse = pers;
             pers._spouse = this;
+            if (this._friends.indexOf(pers) !== -1) {
+                this._friends.splice(this._friends.indexOf(pers), 1);
+            }
         } else {
             console.log("Однополые браки и многожонство у нас не приняты");
         }
@@ -45,6 +48,7 @@ class Woman extends Person {
 
 const ivan = new Man("Ivan");
 const anna = new Woman("Anna");
+const sasha = new Man("Sasha");
 
 ivan.setFriend(anna);
 ivan.marry(anna);
