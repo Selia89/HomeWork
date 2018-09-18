@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>ДЗ№5</title>
+        <meta charset="utf-8"/>
+        <script>
+            "use strict";
+            function colSymbol(str){
+                let result;
+                if(Array.isArray(str.match(/[аоиеёэыуюя]/gi))){
+                    result = str.match(/[аоиеёэыуюя]/gi).length;
+                } else {
+                    result = false;
+                }
+                return result;
+            }
+            
+            var temp = prompt("Введите строку на русском: ", "");
+            while (temp === "" || isNaN(temp) === false || temp.match(/[abcdefghijklmnopqrstuvwxyz]/gi)){
+	            temp = prompt("Нужно ввести строку (русскими буквами):", "");
+            }
+
+            if(colSymbol(temp) === false){
+                alert("Ни одной гласной буквы");
+            } else {
+                alert(`В этой строке ${colSymbol(temp)} русских гласных букв`);
+            }
+
+        </script>
+   </head>
+    <body>
+    </body>
+</html>
