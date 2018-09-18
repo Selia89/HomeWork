@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>ДЗ№5</title>
+        <meta charset="utf-8"/>
+        <style>
+            body{
+                background: #ecedec;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+      }
+      
+      .container{
+        display: flex;
+        justify-content: space-around;
+        margin-top: 100px;
+        align-self: center;
+      }
+      
+      .button{
+        font-weight: bold;
+        padding: 10px 20px;
+        background: linear-gradient(to top, #ff6f0e 0%, #f99224 100%);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 1px #bebfbe;
+        cursor: pointer;
+        outline: none;
+      }
+      
+      .button:hover{
+        background: linear-gradient(to top, #ff6f0e 0%, #e25b01 100%);
+      }
+      
+      .button:active{
+        transform: scale(0.98, 0.98);
+      }
+        </style>
+        <script>
+            'use strict';
+            class HashStorage {
+                constructor() {
+                    this._storage = {};
+                }
+
+                addValue(key, value) {
+                    this._storage[key] = value;
+                }
+
+                getValue(key) {
+                    let hasKey = false;
+                    if(key in this._storage){
+                        return this._storage[key];
+                    } else {
+                        return hasKey;
+                    }
+                }
+
+                deleteValue(key) {
+                    let delOkorNot;
+                    if(key in this._storage) {
+                        delOkorNot = true;
+                        delete this._storage[key];
+                    } else {
+                        delOkorNot = false;
+                    }
+                   return delOkorNot;
+                }
+
+                getKeys() {
+                    return Object.keys(this._storage);
+                }
+
+            }
+
+            const drinkStorage = new HashStorage();
+            
+            function enterInfo() {
+            const drinkName = prompt("Введите название коктейля: ", ""),
+                  drinkRecipe = prompt("Введите рецепт коктейля:", "");
+            let hasAlcohol = confirm("Коктейль алкогольный?");
+
+            if(hasAlcohol === true) {
+                hasAlcohol = "Да";
+            } else {
+                hasAlcohol = "Нет";
+            }
+
+            drinkStorage.addValue(drinkName, {alcohol : hasAlcohol,
+                                               recipe : drinkRecipe});    
+            }
+
+            function getDrinksList(){
+                alert(drinkStorage.getKeys());
+            }
+
+            function deleteDrink() {
+                const drinkName = prompt("Какой коктейль удалить? ", "");
+                const isDelete = drinkStorage.deleteValue(drinkName);
+
+                if(isDelete === true) {
+                    alert("Коктейль удален");
+                } else {
+                    alert("Коктейля нет в хранилище");
+                }
+            }
+
+            function drinkInfo(){
+                const drinkName = prompt("Информацию о каком коктейле нужна?", "");
+                const drink = drinkStorage.getValue(drinkName); 
+                if(drink === false) {
+                    alert("Такого коктейля нет в хранилище");
+                } else {
+                    alert(`Название коктейля: ${drinkName}\nАлкогольный: ${drink.alcohol}\nРецепт приготовления:\n${drink.recipe}`);
+                }
+            }
+
+        </script>
+   </head>
+    <body>
+        <div class="container">
+            <button class="button" onclick="enterInfo()">Ввод информации о напитке</button>
+            <button class="button" onclick="drinkInfo()">Получение информации о напитке</button>
+            <button class="button" onclick="deleteDrink()">Удаление информации о напитке</button>
+            <button class="button" onclick="getDrinksList()">Перечень всех напитков</button>
+        </div>
+    </body>
+</html>
